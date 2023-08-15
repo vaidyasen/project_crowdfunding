@@ -21,10 +21,15 @@ const CreateCampaign = () => {
   });
 
   const handleFormFieldChange = (fieldName, e) => {
+    //e.target.value is the value of the input field
+    //...form is the previous state of the form
+    //we use the spread operator to copy the previous state of the form
     setForm({ ...form, [fieldName]: e.target.value })
   }
 
   const handleSubmit = async (e) => {
+    //preventDefault() prevents the default action of the event from happening
+    //in this case, it prevents the form from refreshing the page
     e.preventDefault();
 
     checkIfImage(form.image, async (exists) => {

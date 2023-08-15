@@ -1,13 +1,23 @@
 import React, { useContext, createContext } from 'react';
 
+// useAddress, useContract, useMetamask, useContractWrite are web3 hooks
 import { useAddress, useContract, useMetamask, useContractWrite } from '@thirdweb-dev/react';
+
+//ethers is a library that allows us to interact with the blockchain
 import { ethers } from 'ethers';
 import { EditionMetadataWithOwnerOutputSchema } from '@thirdweb-dev/sdk';
 
 const StateContext = createContext();
 
+// StateContextProvider is a wrapper component that provides the state to all the components in the app that need it through the useStateContext hook
+// children is a special prop that is passed to components that wrap other components
 export const StateContextProvider = ({ children }) => {
-  const { contract } = useContract('0xf59A1f8251864e1c5a6bD64020e3569be27e6AA9');
+
+  // useContract is a web3 hook that returns the contract object
+  const { contract } = useContract(process.env.REACT_APP_SMART_CONTRACT_ADDRESS);
+
+  // console.log("contract", contract);
+
   const { mutateAsync: createCampaign } = useContractWrite(contract, 'createCampaign');
 
   const address = useAddress();
